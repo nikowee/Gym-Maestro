@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Workout Planner | GM
+{% endblock %}
+
+
+{% block main %}
+    <script>
+        function check_options(filter) {
+            // function to remove all options in filter_options dropdown list
+            function removeOptions(selectElement) {
+            var i, L = selectElement.options.length - 1;
+            for(i = L; i >= 0; i--) {
+                selectElement.remove(i);
+            }}
+
+            // using the remove filter_options function:
+            filter_options = document.getElementById("filter_options")
+            removeOptions(filter_options);
+
+
+            // check selected filter
+            filter = document.getElementById("filter").value;
+
+            // var to dynamically store filter options
+            var variable_options
+
+            if (filter == "bodyPart") {
+                variable_options = ["back", "cardio", "chest", "lower arms", "lower legs", "neck", "shoulders", "upper arms", "upper legs", "waist"];
+            }
+            else if (filter == "target") {
+                variable_options = ["abductors", "abs", "adductors", "biceps", "calves", "cardiovascular system", "delts", "forearms", "glutes", "hamstrings", "lats", "levator scapulae", "pectorals", "quads", "serratus anterior", "spine", "traps", "triceps", "upper back"]
+            }
+            else if (filter == "equipment") {
+                variable_options = ["assisted", "band", "barbell", "body weight", "bosu ball", "cable", "dumbbell", "elliptical machine", "ez barbell", "hammer", "kettlebell", "leverage machine", "medicine ball", "olympic barbell", "resistance band", "roller", "rope", "skierg machine", "sled machine", "smith machine", "stability ball", "stationary bike", "stepmill machine", "tire", "trap bar", "upper body ergometer", "weighted", "wheel roller"]
+            }
+
+            // Use map to transform variable_option array into options array
+            let options = variable_options.map(variable_option => {
+                return {
+                    text: variable_option,
+                    value: variable_option.toLowerCase().replace(/\s/g, '_') // Convert to lowercase and replace spaces with underscores
+                };
+            });
+
+            options.forEach(option =>
+                filter_options.add(
+                    new Option(option.text, option.value)
+                )
+            );
+        }
+    </script>
+
+    <form action="/workoutplanner" method="post">
+        <div class="mb-3">
+            Generate workout plans by body part, target muscle group, or equipment you have
+        </div>
+        <!--dropdown selector to select filter -->
+        <div class="mb-3">
+            <select id="filter" name="filter" onchange="check_options();" class="form-select form-select-sm form-control mx-auto" aria-label=".form-select-sm example" required style="width:180px;" >
+                <option selected disabled>Open select menu</option>
+                <option value="bodyPart">Body Part</option>
+                <option value="target">Target Muscle Group</option>
+                <option value="equipment">Equipment</option>
+              </select>
+        </div>
+        <div class="mb-3">
+            <select id="filter_options" name="filter_options" class="form-select form-select-sm form-control mx-auto" aria-label=".form-select-sm example" required style="width:180px;"></select>
+        </div>
+        <div class="mb-3">
+            <input id="limit" name="limit" class="form-control mx-auto" type="number" min="1" step="1" required style="width:180px;">
+        </div>
+        <button class="btn btn-primary">Generate</button>
+    </form>
+{% endblock %}

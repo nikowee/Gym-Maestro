@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Gym Maestro
+{% endblock %}
+
+
+{% block main %}
+    <h1>BMI: {{ bmi_data.bmi }}</h1>
+    <h1>BMI Range: {{ bmi_data.bmi_range }}</h1>
+    {% for row in data %}
+        <div class="card m-auto mb-5" style="width: 500px;">
+            <img src="{{ row.gifUrl }}" class="card-img-top" alt="muscles this workout will train">
+            <div class="card-body">
+            <h5 class="card-title">{{ row.name }}</h5>
+            <p class="card-text">{{ row.instructions }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item">Body part: {{ row.bodyPart }}</li>
+            <li class="list-group-item">Equipment: {{ row.equipment }}</li>
+            <li class="list-group-item">Target Muscle: {{ row.target }}</li>
+            <li class="list-group-item">Secondary Muscles: {{ row.secondaryMuscles }}</li>
+            </ul>
+        </div>
+    {% endfor %}
+{% endblock %}

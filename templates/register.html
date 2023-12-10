@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register | GM
+{% endblock %}
+
+
+{% block main %}
+    <script>
+        var check_password = function() {
+            if (document.getElementById("password").value != document.getElementById("confirmation").value) {
+                document.getElementById("message").style.color = "red";
+                document.getElementById("message").innerHTML = "Passwords do not match";
+                document.getElementById("registerbtn").disabled = true;
+            } else {
+                document.getElementById("message").innerHTML = "";
+                document.getElementById("registerbtn").disabled = false;
+            };
+        };
+    </script>
+
+    <form action="/register" method="post">
+        <div class="mb-3">
+            <input id="username" name="username" class="form-control mx-auto w-auto" autocomplete="off" autofocus required placeholder="Username" type="text">
+        </div>
+        <div class="mb-3">
+            <input id="password" name="password" class="form-control mx-auto w-auto" required placeholder="Password" type="password" onkeyup="check_password()">
+        </div>
+        <div class="mb-3">
+            <input id="confirmation" name="confirmation" class="form-control mx-auto w-auto" required placeholder="Re-type password" type="password" onkeyup="check_password()">
+        </div>
+        <div class="mb-3">
+            <span id="message"></span>
+        </div>
+        <button class="btn btn-primary" id="registerbtn">Register</button>
+    </form>
+{% endblock %}

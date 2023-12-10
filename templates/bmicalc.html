@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    GM | BMI Calculator
+{% endblock %}
+
+
+{% block main %}
+    <form action="/bmicalc" method="post">
+        <div class="mb-3">
+            <input id="weight" name="weight" class="form-control mx-auto w-auto" autocomplete="off" autofocus required placeholder="Weight (in kg)" type="text">
+        </div>
+        <div class="mb-3">
+            <input id="height" name="height" class="form-control mx-auto w-auto" autocomplete="off" autofocus required placeholder="Height (in cm)" type="text">
+        </div>
+        <button class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
